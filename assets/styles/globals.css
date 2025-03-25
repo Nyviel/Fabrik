@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer utilities {
 	.wrapper {
@@ -8,7 +10,6 @@
 	.flex-start {
 		@apply flex justify-start items-center;
 	}
-
 	.flex-center {
 		@apply flex justify-center items-center;
 	}
@@ -27,52 +28,6 @@
 
 	.h3-bold {
 		@apply font-bold text-xl lg:text-2xl;
-	}
-
-	.bg-primary {
-		background-color: hsl(var(--primary));
-	}
-	.text-primary {
-		color: hsl(var(--primary));
-	}
-	.bg-secondary {
-		background-color: hsl(var(--secondary));
-	}
-	.text-secondary {
-		color: hsl(var(--secondary));
-	}
-	.bg-muted {
-		background-color: hsl(var(--muted));
-	}
-	.text-muted {
-		color: hsl(var(--muted-foreground));
-	}
-	.bg-accent {
-		background-color: hsl(var(--accent));
-	}
-	.text-accent {
-		color: hsl(var(--accent-foreground));
-	}
-	.bg-destructive {
-		background-color: hsl(var(--destructive));
-	}
-	.text-destructive {
-		color: hsl(var(--destructive-foreground));
-	}
-	.border-primary {
-		border-color: hsl(var(--primary));
-	}
-	.border-secondary {
-		border-color: hsl(var(--secondary));
-	}
-	.border-muted {
-		border-color: hsl(var(--muted));
-	}
-	.border-accent {
-		border-color: hsl(var(--accent));
-	}
-	.border-destructive {
-		border-color: hsl(var(--destructive));
 	}
 }
 
@@ -130,9 +85,10 @@
 		--chart-4: 280 65% 60%;
 		--chart-5: 340 75% 55%;
 	}
+}
 
+@layer base {
 	body {
-		background-color: var(--background);
-		color: var(--foreground);
+		@apply bg-background text-foreground;
 	}
 }

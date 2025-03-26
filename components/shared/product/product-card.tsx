@@ -2,13 +2,13 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import ProductPrice from "./product-price";
+import { Product } from "@/types";
 
 interface ProductCardProps {
-	product: any;
+	product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-	console.log(product);
 	return (
 		<Card>
 			<CardHeader>

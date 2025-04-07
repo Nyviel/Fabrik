@@ -14,7 +14,7 @@ import { formatCurrency, formatDateTime, formatNumber } from "@/lib/utils";
 import { ArrowRight, Barcode, CreditCard, Users } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { FaCreditCard, FaMoneyBill } from "react-icons/fa";
+import { FaMoneyBill } from "react-icons/fa";
 
 export const metadata: Metadata = {
 	title: "Admin Dashboard",

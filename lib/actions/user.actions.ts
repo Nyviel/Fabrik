@@ -150,3 +150,32 @@ export const updateUserPaymentMethod = async (
 		};
 	}
 };
+
+export const updateUserProfile = async (newUser: {
+	name: string;
+	email: string;
+}) => {
+	try {
+		const session = await auth();
+		if (!session || !session.user) {
+			throw new Error("Session not found");
+		}
+
+		const user = await prisma.user.findFirst({
+			where: { id: session.user.id },
+		});
+
+		if (!user) {
+			throw new Error("User not found");
+		}
+
+		await prisma.user.update({
+			where: { id: user.id },
+			data: { name: newUser.name },
+		});
+
+		return { success: true, message: "User updated successfully" };
+	} catch (error) {
+		return { success: false, message: formatError(error) };
+	}
+};

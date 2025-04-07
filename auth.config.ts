@@ -1,9 +1,11 @@
 import type { NextAuthConfig } from "next-auth";
 import { NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
+
 export const authConfig = {
 	providers: [], // Required by NextAuthConfig type
 	callbacks: {
-		authorized({ request, auth }: any) {
+		async authorized({ request, auth }: any) {
 			const protectedPaths = [
 				/\/shipping-address/,
 				/\/payment-method/,
@@ -11,15 +13,28 @@ export const authConfig = {
 				/\/profile/,
 				/\/user\/(.*)/,
 				/\/order\/(.*)/,
-				/\/admin/,
+				/\/admin\/(.*)/,
 			];
+
+			const adminPath = /\/admin\/(.*)/;
 
 			// Get pathname from the req URL object
 			const { pathname } = request.nextUrl;
 
 			// Check if user is not authenticated and accessing a protected path
-			if (!auth && protectedPaths.some((p) => p.test(pathname)))
+			if (!auth && protectedPaths.some((p) => p.test(pathname))) {
 				return false;
+			}
+
+			const token = await getToken({
+				req: request,
+				secret: process.env.NEXTAUTH_SECRET,
+			});
+
+			const userRole = token?.role;
+			if (adminPath.test(pathname) && userRole !== "admin") {
+				return NextResponse.redirect(new URL("/", request.url));
+			}
 
 			// Check for session cart cookie
 			if (!request.cookies.get("sessionCartId")) {

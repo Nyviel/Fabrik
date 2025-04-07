@@ -52,6 +52,34 @@ const UserButton = async () => {
 						</div>
 					</DropdownMenuLabel>
 					<DropdownMenuItem className="p-0 mb-1">
+						<Link
+							className="w-full py-4 px-2 h-4 flex items-center justify-start"
+							href={"/user/profile"}
+						>
+							User Profile
+						</Link>
+					</DropdownMenuItem>
+					<DropdownMenuItem className="p-0 mb-1">
+						<Link
+							className="w-full py-4 px-2 h-4 flex items-center justify-start"
+							href={"/user/orders"}
+						>
+							Order History
+						</Link>
+					</DropdownMenuItem>
+
+					{session?.user?.role === "admin" && (
+						<DropdownMenuItem className="p-0 mb-1">
+							<Link
+								className="w-full py-4 px-2 h-4 flex items-center justify-start"
+								href={"/admin/overview"}
+							>
+								Admin
+							</Link>
+						</DropdownMenuItem>
+					)}
+
+					<DropdownMenuItem className="p-0 mb-1">
 						<Button
 							className="w-full py-4 px-2 h-4 justify-start"
 							variant={"ghost"}

@@ -8,7 +8,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { formatCurrency, formatNumberWithFloat } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import { Cart } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -89,10 +89,7 @@ const CartTable = ({ cart }: CartTableProps) => {
 												/>
 											</TableCell>
 											<TableCell className="text-right">
-												$
-												{formatNumberWithFloat(
-													Number(item.price)
-												)}
+												{formatCurrency(item.price)}
 											</TableCell>
 										</TableRow>
 									);

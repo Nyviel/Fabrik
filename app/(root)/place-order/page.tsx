@@ -1,5 +1,7 @@
 import { auth } from "@/auth";
 import CheckoutSteps from "@/components/shared/checkout-steps";
+import PaymentBrandIcon from "@/components/shared/payment-brand-icon";
+import PlaceOrderForm from "@/components/shared/place-order/place-order-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -70,8 +72,11 @@ const PlaceOrderPage = async () => {
 				<div className="md:col-span-2 overflow-x-auto space-y-4">
 					<Card className="py-4">
 						<CardContent className="px-4 py-2">
-							<h2 className="text-xl pb-4">Shipping Address</h2>
-							<p className="bg-muted w-fit px-2 py-1 mb-4 rounded-sm">
+							<h2 className="text-xl font-semibold pb-4">
+								Shipping Address
+							</h2>
+							<hr />
+							<p className="bg-muted w-fit px-2 py-1 my-4 rounded-sm">
 								{userAddress.fullName}
 							</p>
 							<p className="bg-muted w-fit px-2 py-1 rounded-sm">
@@ -93,8 +98,12 @@ const PlaceOrderPage = async () => {
 
 					<Card className="py-4">
 						<CardContent className="px-4 space-y-4">
-							<h2 className="text-xl">Payment Method</h2>
+							<h2 className="text-xl font-semibold">
+								Payment Method
+							</h2>
+							<hr />
 							<p className="bg-muted w-fit px-2 py-1 rounded-sm">
+								<PaymentBrandIcon brand={user.paymentMethod} />{" "}
 								{user.paymentMethod}
 							</p>
 							<div className="mt-3">
@@ -113,7 +122,11 @@ const PlaceOrderPage = async () => {
 
 					<Card className="py-4">
 						<CardContent className="px-4 space-y-4">
-							<h2 className="text-xl">Order Items</h2>
+							<h2 className="text-xl font-semibold">
+								Order Items
+							</h2>
+							<hr />
+							<p className="text-sm">Items added to the cart</p>
 							<Table>
 								<TableHeader>
 									<TableRow>
@@ -176,6 +189,8 @@ const PlaceOrderPage = async () => {
 				<div>
 					<Card className="py-4">
 						<CardContent className=" space-y-4">
+							<h2 className="text-xl font-semibold">Costs</h2>
+							<hr />
 							<div className="flex justify-between">
 								<p>Items</p>
 								<p>{formatCurrency(cart.itemsPrice)}</p>
@@ -192,6 +207,7 @@ const PlaceOrderPage = async () => {
 								<p>Total</p>
 								<p>{formatCurrency(cart.totalPrice)}</p>
 							</div>
+							<PlaceOrderForm />
 						</CardContent>
 					</Card>
 				</div>

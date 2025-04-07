@@ -10,7 +10,7 @@ const ProductPrice = ({ value, className }: ProductPriceProps) => {
 	const [integer, float] = formattedPrice.split(".");
 	return (
 		<p className={cn("text-2xl", className)}>
-			<span className="text-xs align-super">$</span>
+			<span className="text-xs align-super">zł</span>
 			{integer}
 			<span className="text-xs align-super">.{float}</span>
 		</p>

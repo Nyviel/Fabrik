@@ -116,3 +116,12 @@ export const updateUserProfileSchema = z.object({
 	name: z.string().min(2, "Name must be at least 2 characters"),
 	email: z.string().email("Invalid email address"),
 });
+
+export const updateProductSchema = insertProductSchema.extend({
+	id: z.string().min(1, "Id is required"),
+});
+
+export const updateUserSchema = updateUserProfileSchema.extend({
+	id: z.string().min(1, "Id is required"),
+	role: z.string().min(1, "Role is required"),
+});

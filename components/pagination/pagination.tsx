@@ -1,9 +1,9 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "./ui/button";
 import { formUrlQuery } from "@/lib/utils";
 import { PAGE_SIZE } from "@/lib/constants";
+import { Button } from "@/components/ui/button";
 
 interface PaginationProps {
 	page: number | string;

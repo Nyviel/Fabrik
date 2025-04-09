@@ -9,7 +9,7 @@ import { ArrowLeft, ArrowRight, Loader } from "lucide-react";
 import { updateUserPaymentMethod } from "@/lib/actions/user.actions";
 import { toast } from "sonner";
 import { paymentMethodSchema } from "@/lib/validators";
-import PaymentBrandIcon from "../payment-brand-icon";
+import PaymentBrandIcon from "../payment-brand-icon/payment-brand-icon";
 
 interface PaymentMethodFormProps {
 	preferredPaymentMethod: string | null;

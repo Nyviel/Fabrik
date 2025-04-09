@@ -1,6 +1,6 @@
-import AddToCart from "@/components/shared/product/add-to-cart";
-import ProductImages from "@/components/shared/product/product-images";
-import ProductPrice from "@/components/shared/product/product-price";
+import AddToCart from "@/components/product/add-to-cart";
+import ProductImages from "@/components/product/product-images";
+import ProductPrice from "@/components/product/product-price";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { getMyCart } from "@/lib/actions/cart.actions";

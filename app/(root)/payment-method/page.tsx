@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import PaymentMethodForm from "@/components/shared/payment-method/payment-method-form";
+import PaymentMethodForm from "@/components/payment-method/payment-method-form";
 import { getUserById } from "@/lib/actions/user.actions";
 import { Metadata } from "next";
 

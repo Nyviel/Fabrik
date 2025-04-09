@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
-import CheckoutSteps from "@/components/shared/checkout-steps";
-import ShippingAddressForm from "@/components/shared/shipping-address/shipping-address-form";
+import CheckoutSteps from "@/components/checkout-steps";
+import ShippingAddressForm from "@/components/shipping-address/shipping-address-form";
 import { getMyCart } from "@/lib/actions/cart.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 import { ShippingAddress } from "@/types";

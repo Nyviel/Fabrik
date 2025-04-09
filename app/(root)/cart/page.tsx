@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import CartTable from "@/components/shared/cart/cart-table";
+import CartTable from "@/components/cart/cart-table";
 import { getMyCart } from "@/lib/actions/cart.actions";
 import { redirect } from "next/navigation";
 

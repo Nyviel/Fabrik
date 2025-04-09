@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
-import CheckoutSteps from "@/components/shared/checkout-steps";
-import PaymentBrandIcon from "@/components/shared/payment-brand-icon";
-import PlaceOrderForm from "@/components/shared/place-order/place-order-form";
+import CheckoutSteps from "@/components/checkout-steps";
+import PaymentBrandIcon from "@/components/payment-brand-icon/payment-brand-icon";
+import PlaceOrderForm from "@/components/place-order/place-order-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {

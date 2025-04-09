@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import CredentialsSignupForm from "@/components/shared/auth/credentials-signup-form";
+import CredentialsSignupForm from "@/components/auth/credentials-signup-form";
 
 export const metadata: Metadata = {
 	title: "Sign Up",

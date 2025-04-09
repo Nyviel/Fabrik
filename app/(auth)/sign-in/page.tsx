@@ -9,7 +9,7 @@ import { APP_NAME } from "@/lib/constants";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import CredentialsSignInForm from "@/components/shared/auth/credentials-signin-form";
+import CredentialsSignInForm from "@/components/auth/credentials-signin-form";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 

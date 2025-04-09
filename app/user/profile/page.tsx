@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import UserProfileForm from "@/components/shared/user-profile-form/user-profile-form";
+import UserProfileForm from "@/components/user/user-profile-form";
 import { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 

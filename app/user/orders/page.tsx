@@ -1,4 +1,4 @@
-import Pagination from "@/components/pagination";
+import Pagination from "@/components/pagination/pagination";
 import {
 	Table,
 	TableBody,
@@ -74,7 +74,7 @@ const OrdersPage = async (props: {
 					})}
 				</TableBody>
 			</Table>
-			{orders.totalPages > 1 && (
+			{orders.totalPages > 0 && (
 				<Pagination
 					page={page}
 					totalPages={orders.totalPages}

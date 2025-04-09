@@ -24,6 +24,11 @@ export const formatError = (error: any) => {
 		);
 		return fieldErrors;
 	} else if (
+		error.name === "Prisma.PrismaClientKnownRequestError" &&
+		error.code === "P2025"
+	) {
+		return "Product not found";
+	} else if (
 		error.name === "PrismaClientKnownRequestError" &&
 		error.code === "P2002"
 	) {

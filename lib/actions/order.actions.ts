@@ -197,7 +197,7 @@ export const approvePaypalOrder = async (
 
 const updateOrderToPaid = async (
 	orderId: string,
-	paymentResult: PaypalPaymentResult
+	paymentResult?: PaypalPaymentResult
 ) => {
 	const order = await prisma.order.findFirst({
 		where: { id: orderId },
@@ -256,7 +256,7 @@ export const getMyOrders = async (limit = PAGE_SIZE, page: number) => {
 	});
 
 	return {
-		orders: data,
+		orders: convertToPlainObject(data),
 		totalPages: Math.ceil(dataCount / limit),
 		totalOrders: dataCount,
 	};
@@ -303,15 +303,117 @@ export const getOrderSummary = async () => {
 	};
 };
 
-export const getAllOrders = async (page: number, limit = PAGE_SIZE) => {
+export const getAllOrders = async (
+	page: number,
+	query: string,
+	limit = PAGE_SIZE
+) => {
+	//The booleans are for checking bool filters
+	//This should be redone as checkbox filtering on frontend
+	//And sent here as a flag instead of string checking
+	let delivered = undefined;
+	if (query?.toLowerCase().includes("not delivered")) {
+		delivered = false;
+	} else if (query?.toLowerCase().includes("delivered")) {
+		delivered = true;
+	}
+
+	let paid = undefined;
+	if (query?.toLowerCase().includes("not paid")) {
+		paid = false;
+	} else if (query?.toLowerCase().includes("paid")) {
+		paid = true;
+	}
+	const queryFilter: Prisma.OrderWhereInput = {};
+
+	if (
+		paid === undefined &&
+		delivered === undefined &&
+		query &&
+		query !== "all"
+	) {
+		queryFilter.user = {
+			name: {
+				contains: query,
+				mode: "insensitive",
+			},
+		};
+	}
+
+	if (delivered !== undefined) {
+		queryFilter.isDelivered = { equals: delivered };
+	}
+	if (paid !== undefined) {
+		queryFilter.isPaid = { equals: paid };
+	}
+
 	const data = await prisma.order.findMany({
+		where: { ...queryFilter },
 		orderBy: { createdAt: "desc" },
 		take: limit,
 		skip: (page - 1) * limit,
 		include: { user: { select: { name: true } } },
 	});
 
-	const dataCount = await prisma.order.count();
+	const dataCount = await prisma.order.count({ where: { ...queryFilter } });
 
-	return { data, dataCount };
+	return {
+		data: convertToPlainObject(data),
+		totalPages: Math.ceil(dataCount / limit),
+		totalItems: dataCount,
+	};
+};
+
+export const deleteOrder = async (id: string) => {
+	try {
+		await prisma.order.delete({ where: { id } });
+
+		revalidatePath("/admin/orders");
+
+		return { success: true, message: "Order deleted successfully" };
+	} catch (error) {
+		return { success: false, message: formatError(error) };
+	}
+};
+
+export const updateOrderToPaidCOD = async (orderId: string) => {
+	try {
+		await updateOrderToPaid(orderId);
+
+		revalidatePath(`/order/${orderId}`);
+
+		return { success: true, message: "Order marked as paid" };
+	} catch (error) {
+		return { success: false, message: formatError(error) };
+	}
+};
+
+export const deliverOrder = async (orderId: string, deliveryDate: Date) => {
+	try {
+		const order = await prisma.order.findFirst({
+			where: {
+				id: orderId,
+			},
+		});
+
+		if (!order) throw new Error("Order not found");
+		if (!order.isPaid) throw new Error("Order is not paid");
+
+		await prisma.order.update({
+			where: { id: orderId },
+			data: {
+				isDelivered: true,
+				deliveredAt: deliveryDate,
+			},
+		});
+
+		revalidatePath(`/order/${orderId}`);
+
+		return {
+			success: true,
+			message: "Order marked as delivered",
+		};
+	} catch (error) {
+		return { success: false, message: formatError(error) };
+	}
 };

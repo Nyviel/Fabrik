@@ -1,6 +1,7 @@
-import Menu from "@/components/shared/header/menu";
-import UserMainNav from "@/components/shared/user-main-nav/user-main-nav";
-import { Input } from "@/components/ui/input";
+import Footer from "@/components/footer/footer";
+import AdminMainNav from "@/components/admin/main-nav/admin-main-nav";
+import AdminSearch from "@/components/admin/admin-search/admin-search";
+import Menu from "@/components/header/menu";
 import { APP_NAME } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +12,7 @@ export default function Layout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col h-screen">
 			<div className="border-b w-full">
 				<div className="wrapper mx-auto flex items-center h-16 px-4 my-3">
 					<Link href="/" className="w-22">
@@ -22,15 +23,9 @@ export default function Layout({
 							alt={`${APP_NAME} logo`}
 						/>
 					</Link>
-					<UserMainNav className="mx-6" />
+					<AdminMainNav className="mx-6" />
 					<div className="ml-auto items-center flex space-x-4">
-						<div>
-							<Input
-								type="search"
-								placeholder="Search..."
-								className="md:w-[100px] lg:w-[300px]"
-							></Input>
-						</div>
+						<AdminSearch />
 						<Menu />
 					</div>
 				</div>
@@ -38,6 +33,7 @@ export default function Layout({
 			<div className="flex-1 space-y-4 p-8 pt-6 wrapper mx-auto">
 				{children}
 			</div>
+			<Footer />
 		</div>
 	);
 }

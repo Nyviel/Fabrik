@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import Charts from "@/components/shared/charts/charts";
+import Charts from "@/components/charts/charts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
 	Table,
@@ -30,7 +30,7 @@ const AdminOverviewPage = async () => {
 	const summary = await getOrderSummary();
 
 	return (
-		<div className="space-y-2">
+		<div className="space-y-4">
 			<h1 className="h2-bold mb-10">Dashboard</h1>
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 				<Card className="py-4">
@@ -101,7 +101,13 @@ const AdminOverviewPage = async () => {
 						<CardTitle>Overview</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<Charts data={summary.salesData} />
+						{summary.salesData.length === 0 ? (
+							<h3 className="text-sm text-muted-foreground">
+								No sales data found
+							</h3>
+						) : (
+							<Charts data={summary.salesData} />
+						)}
 					</CardContent>
 				</Card>
 				<Card className="col-span-3">
@@ -109,48 +115,54 @@ const AdminOverviewPage = async () => {
 						<CardTitle>Recent Sales</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<Table>
-							<TableHeader>
-								<TableRow>
-									<TableHead>Buyer</TableHead>
-									<TableHead>Date</TableHead>
-									<TableHead>Total</TableHead>
-									<TableHead>Actions</TableHead>
-								</TableRow>
-							</TableHeader>
-							<TableBody>
-								{summary.latestSales.map((sale) => {
-									return (
-										<TableRow key={sale.id}>
-											<TableCell>
-												{sale.user.name}
-											</TableCell>
-											<TableCell>
-												{
-													formatDateTime(
-														sale.createdAt
-													).dateOnly
-												}
-											</TableCell>
-											<TableCell>
-												{formatCurrency(
-													sale.totalPrice
-												)}
-											</TableCell>
-											<TableCell>
-												<Link
-													href={`/order/${sale.id}`}
-													className=""
-												>
-													Details{" "}
-													<ArrowRight className="w-4 h-4 inline-block" />
-												</Link>
-											</TableCell>
-										</TableRow>
-									);
-								})}
-							</TableBody>
-						</Table>
+						{summary.latestSales.length === 0 ? (
+							<h3 className="text-sm text-muted-foreground">
+								No recent orders found
+							</h3>
+						) : (
+							<Table>
+								<TableHeader>
+									<TableRow>
+										<TableHead>Buyer</TableHead>
+										<TableHead>Date</TableHead>
+										<TableHead>Total</TableHead>
+										<TableHead>Actions</TableHead>
+									</TableRow>
+								</TableHeader>
+								<TableBody>
+									{summary.latestSales.map((sale) => {
+										return (
+											<TableRow key={sale.id}>
+												<TableCell>
+													{sale.user.name}
+												</TableCell>
+												<TableCell>
+													{
+														formatDateTime(
+															sale.createdAt
+														).dateOnly
+													}
+												</TableCell>
+												<TableCell>
+													{formatCurrency(
+														sale.totalPrice
+													)}
+												</TableCell>
+												<TableCell>
+													<Link
+														href={`/order/${sale.id}`}
+														className=""
+													>
+														Details{" "}
+														<ArrowRight className="w-4 h-4 inline-block" />
+													</Link>
+												</TableCell>
+											</TableRow>
+										);
+									})}
+								</TableBody>
+							</Table>
+						)}
 					</CardContent>
 				</Card>
 			</div>

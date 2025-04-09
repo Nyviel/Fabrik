@@ -44,7 +44,7 @@
 		--secondary: 210 40% 96.1%;
 		--secondary-foreground: 222.2 47.4% 11.2%;
 		--muted: 210 40% 96.1%;
-		--muted-foreground: 215.4 16.3% 66.9%;
+		--muted-foreground: 215.4 16.3% 80%;
 		--accent: 210 40% 96.1%;
 		--accent-foreground: 222.2 47.4% 11.2%;
 		--destructive: 0 84.2% 60.2%;
@@ -96,5 +96,13 @@
 	::before,
 	::after {
 		border-color: hsl(50.6 100% 50%);
+	}
+
+	html.dark .upload-field .text-white {
+		color: hsl(50.6 100% 50%);
+	}
+
+	.upload-field .text-white {
+		color: hsl(50.6 100% 50%);
 	}
 }

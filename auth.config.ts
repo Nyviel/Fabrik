@@ -23,6 +23,7 @@ export const authConfig = {
 
 			// Check if user is not authenticated and accessing a protected path
 			if (!auth && protectedPaths.some((p) => p.test(pathname))) {
+				console.error("Unauthorized user");
 				return false;
 			}
 
@@ -33,6 +34,7 @@ export const authConfig = {
 
 			const userRole = token?.role;
 			if (adminPath.test(pathname) && userRole !== "admin") {
+				console.error("Unauthorized admin");
 				return NextResponse.redirect(new URL("/", request.url));
 			}
 

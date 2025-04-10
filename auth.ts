@@ -53,7 +53,6 @@ export const config = {
 			session.user.id = token.sub;
 			session.user.role = token.role;
 			session.user.name = token.name;
-			console.log(`JWT callback: ${JSON.stringify(session?.user)}`);
 
 			if (trigger == "update") {
 				session.user.name = user.name;
@@ -65,7 +64,6 @@ export const config = {
 			if (user) {
 				token.id = user.id;
 				token.role = user.role;
-				console.log(`JWT callback: ${JSON.stringify(session?.user)}`);
 
 				if (user.name === "NO_NAME") {
 					token.name = user.email!.split("@")[0];

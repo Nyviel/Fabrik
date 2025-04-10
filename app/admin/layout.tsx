@@ -5,12 +5,14 @@ import Menu from "@/components/header/menu";
 import { APP_NAME } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
+import { requireAdmin } from "@/lib/auth-guard";
 
-export default function Layout({
+export default async function Layout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	await requireAdmin();
 	return (
 		<div className="flex flex-col h-screen">
 			<div className="border-b w-full">

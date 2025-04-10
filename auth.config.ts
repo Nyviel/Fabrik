@@ -1,6 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
 import { NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
 
 export const authConfig = {
 	providers: [], // Required by NextAuthConfig type
@@ -16,28 +15,14 @@ export const authConfig = {
 				/\/admin\/(.*)/,
 			];
 
-			const adminPath = /\/admin\/(.*)/;
-
 			// Get pathname from the req URL object
 			const { pathname } = request.nextUrl;
+
+			console.log(auth);
 
 			// Check if user is not authenticated and accessing a protected path
 			if (!auth && protectedPaths.some((p) => p.test(pathname))) {
 				return false;
-			}
-
-			const token = await getToken({
-				req: request,
-				secret: process.env.NEXTAUTH_SECRET,
-			});
-
-			const userRole = token?.role;
-			console.log(`Authorized callback: ${JSON.stringify(token)}`);
-
-			if (adminPath.test(pathname) && userRole !== "admin") {
-				return NextResponse.redirect(
-					new URL("/unauthorized", request.url)
-				);
 			}
 
 			// Check for session cart cookie

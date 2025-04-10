@@ -27,7 +27,7 @@ const Search = async () => {
 						{categories.map(({ category }) => (
 							<SelectItem
 								key={category}
-								value={category.toLowerCase()}
+								value={category}
 								className="py-1 px-2 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800"
 							>
 								{category.charAt(0).toUpperCase() +

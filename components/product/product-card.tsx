@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ProductPrice from "./product-price";
 import { Product } from "@/types";
+import Rating from "../rating/rating";
 
 interface ProductCardProps {
 	product: Product;
@@ -10,7 +11,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
 	return (
-		<Card>
+		<Card className="pt-4 pb-2">
 			<CardHeader>
 				<Link href={`/product/${product.slug}`}>
 					<Image
@@ -22,13 +23,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
 					/>
 				</Link>
 			</CardHeader>
-			<CardContent className="flex flex-col h-full">
+			<CardContent className="flex flex-col h-full py-2">
 				<div className="text-xs">{product.brand}</div>
 				<Link href={`product/${product.slug}`}>
 					<h3 className="text-sm font-medium">{product.name}</h3>
 				</Link>
-				<div className="flex-1 flex-between gap-4">
-					<p>{product.rating.toString()} stars</p>
+				<div className="flex-1 flex-between justify-end gap-4 mt-4">
+					<Rating value={Number(product.rating)} />
 					{product.stock > 0 ? (
 						<ProductPrice
 							value={Number(product.price?.toString())}

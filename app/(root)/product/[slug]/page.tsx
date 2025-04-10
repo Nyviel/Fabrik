@@ -1,6 +1,9 @@
+import { auth } from "@/auth";
 import AddToCart from "@/components/product/add-to-cart";
 import ProductImages from "@/components/product/product-images";
 import ProductPrice from "@/components/product/product-price";
+import Rating from "@/components/rating/rating";
+import ReviewList from "@/components/review/review-list";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { getMyCart } from "@/lib/actions/cart.actions";
@@ -9,7 +12,10 @@ import { notFound, redirect } from "next/navigation";
 
 const ProductPage = async (props: { params: Promise<{ slug: string }> }) => {
 	const { slug } = await props.params;
+
 	const product = await getProductBySlug(slug);
+	if (!product) notFound();
+
 	let cart;
 	try {
 		cart = await getMyCart();
@@ -17,7 +23,9 @@ const ProductPage = async (props: { params: Promise<{ slug: string }> }) => {
 		console.error(error);
 		redirect("/");
 	}
-	if (!product) notFound();
+
+	const session = await auth();
+
 	return (
 		<>
 			<section>
@@ -25,14 +33,14 @@ const ProductPage = async (props: { params: Promise<{ slug: string }> }) => {
 					<div className="col-span-2">
 						<ProductImages images={product.images} />
 					</div>
-					<div className="col-span-2">
+					<div className="col-span-2  pl-4">
 						<div className="flex flex-col gap-6">
 							<p>
 								{product.brand} {product.category}
 							</p>
-							<h1 className="h3-bold">{product.name}</h1>
+							<h1 className="h2-bold">{product.name}</h1>
 							<p>
-								{product.rating} of {product.numReviews} Reviews
+								<Rating value={Number(product.rating)} />
 							</p>
 							<div className="flex flex-col gap-3 sm:flex-row sm:items-center">
 								<ProductPrice
@@ -90,6 +98,14 @@ const ProductPage = async (props: { params: Promise<{ slug: string }> }) => {
 						</Card>
 					</div>
 				</div>
+			</section>
+			<section className="mt-10">
+				<h2 className="h2-bold">Customer Reviews</h2>
+				<ReviewList
+					userId={session?.user.id || ""}
+					productId={product.id}
+					productSlug={product.slug}
+				/>
 			</section>
 		</>
 	);

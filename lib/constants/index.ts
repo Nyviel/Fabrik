@@ -82,3 +82,8 @@ export const PRICES = [
 ];
 export const RATINGS = ["5", "4", "3", "2", "1"];
 export const SORT_ORDERS = ["newest", "lowest", "highest", "rating"];
+export const reviewFormDefaultValues = {
+	title: "",
+	description: "",
+	rating: 0,
+};

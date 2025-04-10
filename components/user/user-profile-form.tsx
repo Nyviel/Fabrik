@@ -19,6 +19,7 @@ import { z } from "zod";
 
 const ProfileForm = () => {
 	const { data: session, update } = useSession();
+	console.log(session);
 
 	const form = useForm<z.infer<typeof updateUserProfileSchema>>({
 		resolver: zodResolver(updateUserProfileSchema),

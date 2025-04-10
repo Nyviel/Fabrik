@@ -32,7 +32,7 @@ export const authConfig = {
 			});
 
 			const userRole = token?.role;
-			console.log(`Authorized callback: ${token}`);
+			console.log(`Authorized callback: ${JSON.stringify(token)}`);
 
 			if (adminPath.test(pathname) && userRole !== "admin") {
 				return NextResponse.redirect(

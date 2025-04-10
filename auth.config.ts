@@ -32,6 +32,8 @@ export const authConfig = {
 			});
 
 			const userRole = token?.role;
+			console.log(`Authorized callback: ${token}`);
+
 			if (adminPath.test(pathname) && userRole !== "admin") {
 				return NextResponse.redirect(
 					new URL("/unauthorized", request.url)
